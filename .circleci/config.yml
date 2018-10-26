@@ -1,0 +1,52 @@
+version: 2.1
+
+executors:
+  goexecutor:
+    working_directory: /go/src/github.com/signalfx/signalfx-istio-adapter
+    docker:
+      - image: golang:1.11-alpine
+
+commands:
+  goexecutor_setup:
+    steps:
+      - run: apk add --no-cache curl make git bash coreutils
+
+jobs:
+  lint:
+    executor: goexecutor
+    steps:
+      - goexecutor_setup
+      - checkout
+      - run: |
+          go get -u golang.org/x/lint/golint
+          golint ./signalfx/... ./cmd/...
+  vet:
+    executor: goexecutor
+    steps:
+      - goexecutor_setup
+      - checkout
+      - run: |
+          CGO_ENABLED=0 go vet ./signalfx/... ./cmd/...
+  fmt:
+    executor: goexecutor
+    steps:
+      - goexecutor_setup
+      - checkout
+      - run: |
+          go fmt ./signalfx/... ./cmd/...
+          git diff --exit-code || (echo 'go files need to be reformatted. Run `go fmt` and commit the changes.' && exit 1)
+  tests:
+    executor: goexecutor
+    steps:
+      - goexecutor_setup
+      - checkout
+      - run: |
+          CGO_ENABLED=0 go test -v ./signalfx/...
+
+workflows:
+  run_jobs:
+    jobs:
+      - lint
+      - vet
+      - fmt
+      - tests

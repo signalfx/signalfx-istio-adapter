@@ -1,0 +1,24 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: signalfx-adapter
+  namespace: istio-system
+  labels:
+    app: signalfx-adapter
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: signalfx-adapter
+      annotations:
+        sidecar.istio.io/inject: "false"
+        scheduler.alpha.kubernetes.io/critical-pod: ""
+    spec:
+      containers:
+      - name: adapter-server
+        image: quay.io/signalfx/istio-adapter:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080

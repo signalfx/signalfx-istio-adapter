@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: signalfx-adapter
+  namespace: istio-system
+  labels:
+    app: signalfx-adapter
+spec:
+  type: ClusterIP
+  ports:
+  - name: grpc
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: signalfx-adapter

@@ -1,0 +1,59 @@
+# Copied from main Istio Gopkg.toml and pruned down to only what this adapter
+# needs.
+
+# https://github.com/kubernetes/client-go#compatibility-matrix
+# for details.
+[[override]]
+  name = "k8s.io/client-go"
+  branch = "release-8.0"	# For K8s 1.10.x
+
+[[override]]
+  name = "k8s.io/apimachinery"
+  version = "kubernetes-1.11.3"
+
+[[constraint]]
+  name = "go.opencensus.io"
+  version = ">=0.15.0"
+
+[[constraint]]
+  name = "github.com/gogo/protobuf"
+  version = "^1.1.1"
+
+[[constraint]]
+  name = "github.com/golang/protobuf"
+  version = "1.1.0"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/hashicorp/go-multierror"
+
+[[constraint]]
+  name = "istio.io/api"
+  branch = "master"
+
+[[constraint]]
+  name = "istio.io/istio"
+  # This is temporary until we get our adapter removed from istio.  Having it
+  # there causes conflicts with the protobuf library since names overlap.
+  branch = "remove-signalfx-adapter"
+  source = "github.com/signalfx/istio"
+
+[prune]
+  go-tests = true
+  unused-packages = true
+  non-go = true
+  [[prune.project]]
+    name = "istio.io/istio"
+    non-go = false
+    unused-packages = false
+  [[prune.project]]
+    name = "istio.io/api"
+    non-go = false
+    unused-packages = false
+  [[prune.project]]
+    name = "github.com/gogo/protobuf"
+    non-go = false
+    unused-packages = false
+  [[prune.project]]
+    name = "github.com/signalfx/com_signalfx_metrics_protobuf"
+    non-go = false

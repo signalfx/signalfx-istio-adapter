@@ -1,0 +1,132 @@
+// Copyright 2017 Istio Authors
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+
+syntax = "proto3";
+
+import "google/protobuf/duration.proto";
+import "mesh/v1alpha1/proxy.proto";
+
+// $title: Service Mesh
+// $description: Configuration affecting the service mesh as a whole.
+// $location: https://istio.io/docs/reference/config/istio.mesh.v1alpha1.html
+// $aliases:
+// $  - /docs/reference/config/service-mesh.html
+
+package istio.mesh.v1alpha1;
+
+option go_package="istio.io/api/mesh/v1alpha1";
+
+// MeshConfig defines mesh-wide variables shared by all Envoy instances in the
+// Istio service mesh.
+//
+// NOTE: This configuration type should be used for the low-level global
+// configuration, such as component addresses and port numbers. It should not
+// be used for the features of the mesh that can be scoped by service or by
+// namespace. Some of the fields in the mesh config are going to be deprecated
+// and replaced with several individual configuration types (for example,
+// tracing configuration).
+message MeshConfig {
+  // Address of the server that will be used by the proxies for policy
+  // check calls. By using different names for mixerCheckServer and
+  // mixerReportServer, it is possible to have one set of mixer servers handle
+  // policy check calls while another set of mixer servers handle telemetry
+  // calls.
+  //
+  // NOTE: Omitting mixerCheckServer while specifying mixerReportServer is
+  // equivalent to setting disablePolicyChecks to true.
+  string mixer_check_server = 1;
+
+  // Address of the server that will be used by the proxies for policy report
+  // calls.
+  string mixer_report_server = 2;
+
+  // Disable policy checks by the mixer service. Default
+  // is false, i.e. mixer policy check is enabled by default.
+  bool disable_policy_checks = 3;
+
+  // Port on which Envoy should listen for incoming connections from
+  // other services.
+  int32 proxy_listen_port = 4;
+
+  // Port on which Envoy should listen for HTTP PROXY requests if set.
+  int32 proxy_http_port = 5;
+
+  // Connection timeout used by Envoy. (MUST BE >=1ms)
+  google.protobuf.Duration connect_timeout = 6;
+
+  // Class of ingress resources to be processed by Istio ingress
+  // controller.  This corresponds to the value of
+  // "kubernetes.io/ingress.class" annotation.
+  string ingress_class = 7;
+
+  // Name of the kubernetes service used for the istio ingress controller.
+  string ingress_service = 8;
+
+  enum IngressControllerMode {
+    // Disables Istio ingress controller.
+    OFF = 0;
+
+    // Istio ingress controller will act on ingress resources that do not
+    // contain any annotation or whose annotations match the value
+    // specified in the ingress_class parameter described earlier. Use this
+    // mode if Istio ingress controller will be the default ingress
+    // controller for the entire kubernetes cluster.
+    DEFAULT = 1;
+
+    // Istio ingress controller will only act on ingress resources whose
+    // annotations match the value specified in the ingress_class parameter
+    // described earlier. Use this mode if Istio ingress controller will be
+    // a secondary ingress controller (e.g., in addition to a
+    // cloud-provided ingress controller).
+    STRICT = 2;
+  }
+
+  // Defines whether to use Istio ingress controller for annotated or all ingress resources.
+  IngressControllerMode ingress_controller_mode = 9;
+
+  reserved 10;
+  reserved 11;
+
+  // Flag to control generation of trace spans and request IDs.
+  // Requires a trace span collector defined in the proxy configuration.
+  bool enable_tracing = 12;
+
+  // File address for the proxy access log (e.g. /dev/stdout).
+  // Empty value disables access logging.
+  string access_log_file = 13;
+
+  // Default proxy config used by the proxy injection mechanism operating in the mesh
+  // (e.g. Kubernetes admission controller)
+  // In case of Kubernetes, the proxy config is applied once during the injection process,
+  // and remain constant for the duration of the pod. The rest of the mesh config can be changed
+  // at runtime and config gets distributed dynamically.
+  ProxyConfig default_config = 14;
+
+  reserved 15;
+  reserved 16;
+  reserved 17;
+  reserved 18;
+
+  // Enables clide side policy checks.
+  bool enable_client_side_policy_check = 19;
+
+  // Unix Domain Socket through which envoy communicates with NodeAgent SDS to get key/cert for mTLS.
+  // Use secret-mount files instead of SDS if set to empty.
+  string sds_uds_path = 20;
+  
+  reserved 21;
+
+  // Address of the galley service exposing the Mesh Control Protocol (MCP).
+  string galley_address = 22;
+}
