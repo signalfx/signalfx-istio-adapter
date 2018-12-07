@@ -21,7 +21,17 @@ The [config docs](./signalfx/config/signalfx.config.pb.html) explain the
 configuration options and how to specify custom tracespan instances that will
 influence the tags that get put on the emitted spans to SignalFx.
 
+## Releasing a new version (until CircleCI job is added)
+
+To release a new version:
+
+1. Tag a release on the Github repo of the form `vX.X.X` that makes sense given the prior release.
+2. Update the `image` field in the pod spec of `resources/deployment.yaml` to reflect the new version
+3. Run `PUSH=yes TAG=X.X.X make image` with the new tag version
+4. Commit the update to the Deployment spec to Github (this commit should be *after* the tag created in step 1).
+
 ## TODO
 
+ - Add CircleCI deployment job when a new tag it made against master
  - Enable session support when implemented in Istio mixer
  - Add Helm chart to deploy this
