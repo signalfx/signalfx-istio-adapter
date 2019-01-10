@@ -3,15 +3,19 @@ package config
 import (
 	fmt "fmt"
 	"net/url"
+	"os"
 	"time"
 
 	"istio.io/istio/mixer/pkg/adapter"
 )
 
+// AccessTokenEnvvar is the name of the envvar that specifies the SignalFx access token
+const AccessTokenEnvvar = "SIGNALFX_ACCESS_TOKEN"
+
 // Validate the parsed config
 func Validate(conf *Params) error {
 	var ce *adapter.ConfigErrors
-	if conf.AccessToken == "" {
+	if conf.AccessToken == "" && os.Getenv(AccessTokenEnvvar) == "" {
 		ce = ce.Appendf("access_token", "You must specify the SignalFx access token")
 	}
 
