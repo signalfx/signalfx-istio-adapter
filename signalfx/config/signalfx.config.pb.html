@@ -94,7 +94,10 @@ the global ingest server if not specified.</p>
 <td><code>string</code></td>
 <td>
 <p>Required. The access token for the SignalFx organization that should
-receive the metrics.</p>
+receive the metrics.  This can also be configured via an environment
+variable <code>SIGNALFX_ACCESS_TOKEN</code> set on the adapter process which makes
+it possible to use Kubernetes secrets to provide the token.  This field,
+if specified, will take priority over the environment variable.</p>
 
 </td>
 </tr>

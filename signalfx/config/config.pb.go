@@ -132,7 +132,10 @@ type Params struct {
 	// the global ingest server if not specified.
 	IngestUrl string `protobuf:"bytes,2,opt,name=ingest_url,json=ingestUrl,proto3" json:"ingest_url,omitempty"`
 	// Required. The access token for the SignalFx organization that should
-	// receive the metrics.
+	// receive the metrics.  This can also be configured via an environment
+	// variable `SIGNALFX_ACCESS_TOKEN` set on the adapter process which makes
+	// it possible to use Kubernetes secrets to provide the token.  This field,
+	// if specified, will take priority over the environment variable.
 	AccessToken string `protobuf:"bytes,3,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	// Optional. Specifies how frequently to send metrics to SignalFx.  Metrics
 	// reported to this adapter are collected and reported as a timeseries.

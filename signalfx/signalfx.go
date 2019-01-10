@@ -26,6 +26,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"net"
+	"os"
 	"sync"
 	"time"
 
@@ -79,6 +80,9 @@ func parseConfig(rawConfig *google_protobuf2.Any) (*config.Params, error) {
 func createSignalFxClient(conf *config.Params) *sfxclient.HTTPSink {
 	sink := sfxclient.NewHTTPSink()
 	sink.AuthToken = conf.AccessToken
+	if sink.AuthToken == "" {
+		sink.AuthToken = os.Getenv(config.AccessTokenEnvvar)
+	}
 
 	if conf.IngestUrl != "" {
 		sink.DatapointEndpoint = fmt.Sprintf("%s/v2/datapoint", conf.IngestUrl)
