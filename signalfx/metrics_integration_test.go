@@ -237,7 +237,7 @@ func TestReportMetrics(t *testing.T) {
 
 							return *dps[i].Dimensions[18].Value <= *dps[j].Dimensions[18].Value
 						})
-						if len(dps) >= 8 {
+						if len(dps) >= 24 {
 							cancel()
 						}
 					}
@@ -512,10 +512,10 @@ func TestReportMetrics(t *testing.T) {
              "value": "unknown"
             }
            ],
-           "metric": "requestduration.instance.istio-system",
+           "metric": "requestduration.instance.istio-system.count",
            "metricType": 3,
            "value": {
-            "intValue": 0
+            "intValue": 1
            }
           },
           {
@@ -601,10 +601,1434 @@ func TestReportMetrics(t *testing.T) {
              "value": "unknown"
             }
            ],
-           "metric": "requestduration.instance.istio-system",
+           "metric": "requestduration.instance.istio-system.count",
            "metricType": 3,
            "value": {
-            "intValue": 0
+            "intValue": 1
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src1"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.max",
+           "metricType": 0,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src2"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.max",
+           "metricType": 0,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src1"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.min",
+           "metricType": 0,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src2"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.min",
+           "metricType": 0,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src1"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.p25",
+           "metricType": 0,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src2"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.p25",
+           "metricType": 0,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src1"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.p50",
+           "metricType": 0,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src2"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.p50",
+           "metricType": 0,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src1"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.p90",
+           "metricType": 0,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src2"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.p90",
+           "metricType": 0,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src1"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.p99",
+           "metricType": 0,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src2"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.p99",
+           "metricType": 0,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src1"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.sum",
+           "metricType": 3,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src2"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.sum",
+           "metricType": 3,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src1"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.sumsquare",
+           "metricType": 3,
+           "value": {
+            "doubleValue": 0
+           }
+          },
+          {
+           "dimensions": [
+            {
+             "key": "connection_mtls",
+             "value": "false"
+            },
+            {
+             "key": "destination_app",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_name",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_service_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_version",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload",
+             "value": "unknown"
+            },
+            {
+             "key": "destination_workload_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "monitored_resource_type",
+             "value": "UNSPECIFIED"
+            },
+            {
+             "key": "reporter",
+             "value": "client"
+            },
+            {
+             "key": "request_protocol",
+             "value": "http"
+            },
+            {
+             "key": "response_code",
+             "value": "200"
+            },
+            {
+             "key": "source_app",
+             "value": "unknown"
+            },
+            {
+             "key": "source_namespace",
+             "value": "unknown"
+            },
+            {
+             "key": "source_principal",
+             "value": "unknown"
+            },
+            {
+             "key": "source_version",
+             "value": "v1"
+            },
+            {
+             "key": "source_workload",
+             "value": "src2"
+            },
+            {
+             "key": "source_workload_namespace",
+             "value": "unknown"
+            }
+           ],
+           "metric": "requestduration.instance.istio-system.sumsquare",
+           "metricType": 3,
+           "value": {
+            "doubleValue": 0
            }
           },
           {
