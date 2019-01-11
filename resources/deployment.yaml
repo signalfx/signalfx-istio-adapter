@@ -1,24 +1,41 @@
 ---
+# Source: signalfx-adapter/templates/deployment.yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: signalfx-adapter
   namespace: istio-system
   labels:
-    app: signalfx-adapter
+    app.kubernetes.io/name: signalfx-adapter
 spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: signalfx-adapter
   replicas: 1
   template:
     metadata:
       labels:
-        app: signalfx-adapter
+        app.kubernetes.io/name: signalfx-adapter
       annotations:
         sidecar.istio.io/inject: "false"
         scheduler.alpha.kubernetes.io/critical-pod: ""
     spec:
       containers:
-      - name: adapter-server
-        image: quay.io/signalfx/istio-adapter:0.1.0
+      - name: adapter
+        image: "quay.io/signalfx/istio-adapter:0.1.0"
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 20
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 20
+        resources:
+            {}
+

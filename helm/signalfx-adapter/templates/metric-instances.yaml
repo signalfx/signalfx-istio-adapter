@@ -1,0 +1,89 @@
+apiVersion: "config.istio.io/v1alpha2"
+kind: instance
+metadata:
+  name: requestcount
+  namespace: istio-system
+spec:
+  template: metric
+  params:
+    value: "1"
+    dimensions:
+      {{- with .Values.metricDimensions }}
+{{ toYaml . | trim | indent 6 }}
+      {{- end }}
+    monitored_resource_type: '"UNSPECIFIED"'
+---
+apiVersion: "config.istio.io/v1alpha2"
+kind: instance
+metadata:
+  name: requestduration
+  namespace: istio-system
+spec:
+  template: metric
+  params:
+    value: response.duration | "0ms"
+    dimensions:
+      {{- with .Values.metricDimensions }}
+{{ toYaml . | trim | indent 6 }}
+      {{- end }}
+    monitored_resource_type: '"UNSPECIFIED"'
+---
+apiVersion: "config.istio.io/v1alpha2"
+kind: instance
+metadata:
+  name: requestsize
+  namespace: istio-system
+spec:
+  template: metric
+  params:
+    value: request.size | 0
+    dimensions:
+      {{- with .Values.metricDimensions }}
+{{ toYaml . | trim | indent 6 }}
+      {{- end }}
+    monitored_resource_type: '"UNSPECIFIED"'
+---
+apiVersion: "config.istio.io/v1alpha2"
+kind: instance
+metadata:
+  name: responsesize
+  namespace: istio-system
+spec:
+  template: metric
+  params:
+    value: response.size | 0
+    dimensions:
+      {{- with .Values.metricDimensions }}
+{{ toYaml . | trim | indent 6 }}
+      {{- end }}
+    monitored_resource_type: '"UNSPECIFIED"'
+---
+apiVersion: "config.istio.io/v1alpha2"
+kind: instance
+metadata:
+  name: tcpbytesent
+  namespace: istio-system
+spec:
+  template: metric
+  params:
+    value: connection.sent.bytes | 0
+    dimensions:
+      {{- with .Values.metricDimensions }}
+{{ toYaml . | trim | indent 6 }}
+      {{- end }}
+    monitored_resource_type: '"UNSPECIFIED"'
+---
+apiVersion: "config.istio.io/v1alpha2"
+kind: instance
+metadata:
+  name: tcpbytereceived
+  namespace: istio-system
+spec:
+  template: metric
+  params:
+    value: connection.received.bytes | 0
+    dimensions:
+      {{- with .Values.metricDimensions }}
+{{ toYaml . | trim | indent 6 }}
+      {{- end }}
+    monitored_resource_type: '"UNSPECIFIED"'

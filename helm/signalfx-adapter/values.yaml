@@ -1,0 +1,122 @@
+
+# The adapter can have multiple instances, each of which will register with the
+# mixer and be sent a separate set of tracespans/metrics.
+replicas: 1
+
+# Fill this in with your SignalFx access token.  You can also put it in a
+# secret
+accessToken:
+
+# If you don't want to hard code your access token in the chart values, you can
+# specify a secret value to use.  It will be injected to the container via an
+# envvar and the adapter will pick it up.
+accessTokenSecret:
+  # name: <secret name>
+  # key: <key within secret>
+
+# If using the Smart Gateway (recommended for tracing), you should set this to
+# the location of that (via plain HTTP).
+ingestUrl: https://ingest.signalfx.com
+
+# How frequently to sent datapoints derived from Istio metrics.  This can be
+# any duration string parseable by https://golang.org/pkg/time/#ParseDuration
+datapointInterval: 10s
+
+enableMetrics: true
+enableTracing: true
+
+metricConfig:
+  - name: requestcount.instance.istio-system
+    type: COUNTER
+  - name: requestduration.instance.istio-system
+    type: HISTOGRAM
+  - name: requestsize.instance.istio-system
+    type: COUNTER
+  - name: responsesize.instance.istio-system
+    type: COUNTER
+  - name: tcpbytesent.instance.istio-system
+    type: COUNTER
+  - name: tcpbytereceived.instance.istio-system
+    type: COUNTER
+
+tracingConfig:
+  buffer_size: 1000
+  localEndpointNameTagKey: source.workload.name
+  localEndpointIpTagKey: source.ip
+  remoteEndpointNameTagKey: destination.workload.name
+  remoteEndpointIpTagKey: destination.ip
+  sample_probability: 1.0
+
+imageRepository: quay.io/signalfx/istio-adapter
+imageTag: 0.1.0
+imagePullPolicy: Always
+
+nameOverride: ""
+fullnameOverride: ""
+
+# You can set the adapter pod resource limits/requests below.  How much is
+# required will depend heavily on the amount of traffic in your cluster.
+resources: {}
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# This can be overridden to provide a different span (operation) name for
+# generated trace spans.  It defaults to the request path, but this may be too
+# verbose.
+spanNameAttribute: 'request.path | "/"'
+
+# This will replace the entire block within the tracespan.spec.params block
+# within the tracespan instance used by the adapter.
+tracespanParams:
+
+spanTags:
+  # This gets put into the remoteEndpoint.ipv4 field
+  destination.ip: destination.ip | ip("0.0.0.0")
+  # This gets put into the remoteEndpoint.name field
+  destination.name: destination.name | "unknown"
+  destination.namespace: destination.namespace | "unknown"
+  destination.workload.name: destination.workload.name | "unknown"
+  request.host: request.host | ""
+  request.method: request.method | ""
+  request.path: request.path | ""
+  request.size: request.size | 0
+  request.useragent: request.useragent | ""
+  response.size: response.size | 0
+  # This gets put into the localEndpoint.name field
+  source.name: source.name | "unknown"
+  # This gets put into the localEndpoint.ipv4 field
+  source.ip: source.ip | ip("0.0.0.0")
+  source.namespace: source.namespace | "unknown"
+  source.version: source.labels["version"] | "unknown"
+  source.workload.name: source.workload.name | "unknown"
+
+metricDimensions:
+  connection_mtls: connection.mtls | false
+  destination_namespace: destination.namespace | "unknown"
+  destination_workload: destination.workload.name | "unknown"
+  destination_workload_namespace: destination.workload.namespace | "unknown"
+  destination_principal: destination.principal | "unknown"
+  destination_app: destination.labels["app"] | "unknown"
+  destination_version: destination.labels["version"] | "unknown"
+  destination_service: destination.service.host | "unknown"
+  destination_service_name: destination.service.name | "unknown"
+  destination_service_namespace: destination.service.namespace | "unknown"
+  reporter: 'conditional((context.reporter.kind | "inbound") == "outbound", "client", "server")'
+  request_protocol: api.protocol | context.protocol | "unknown"
+  response_code: response.code | 200
+  source_namespace: source.namespace | "unknown"
+  source_workload: source.workload.name | "unknown"
+  source_workload_namespace: source.workload.namespace | "unknown"
+  source_principal: source.principal | "unknown"
+  source_app: source.labels["app"] | "unknown"
+  source_version: source.labels["version"] | "unknown"

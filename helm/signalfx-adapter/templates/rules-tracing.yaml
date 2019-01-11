@@ -1,5 +1,3 @@
----
-# Source: signalfx-adapter/templates/rules-tracing.yaml
 apiVersion: config.istio.io/v1alpha2
 kind: rule
 metadata:
@@ -11,4 +9,3 @@ spec:
     instances:
     - signalfxtracespan
   match: context.protocol == "http" || context.protocol == "grpc"
-

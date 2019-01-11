@@ -1,0 +1,32 @@
+apiVersion: "config.istio.io/v1alpha2"
+kind: handler
+metadata:
+  name: signalfx
+  namespace: istio-system
+  labels:
+    app.kubernetes.io/name: {{ include "signalfx-istio.name" . }}
+    helm.sh/chart: {{ include "signalfx-istio.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  adapter: signalfx
+  connection:
+    address: "{{ include "signalfx-istio.fullname" . }}:8080"
+  params:
+    {{- with .Values.accessToken }}
+    # This can also be set with the env var SIGNALFX_ACCESS_TOKEN on the
+    # adapter pod.
+    access_token: "{{ . }}"
+    {{- end }}
+    ingest_url: "{{ .Values.ingestUrl }}"  # Fill in with base ingest URL or remove to use default
+    datapoint_interval: {{ .Values.datapointInterval }}
+    enable_metrics: {{ .Values.enableMetrics }}
+    enable_tracing: {{ .Values.enableTracing }}
+    {{- with .Values.metricConfig }}
+    metrics:
+{{ toYaml . | trim | indent 4 }}
+    {{- end }}
+    {{- with .Values.tracingConfig }}
+    tracing:
+{{ toYaml . | trim | indent 6 }}
+    {{- end -}}
