@@ -18,7 +18,7 @@ spec:
     - name: requestcount.instance.istio-system
       type: COUNTER
     - name: requestduration.instance.istio-system
-      type: COUNTER
+      type: HISTOGRAM
     - name: requestsize.instance.istio-system
       type: COUNTER
     - name: responsesize.instance.istio-system
