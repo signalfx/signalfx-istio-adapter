@@ -62,7 +62,7 @@ func TestReportTraces(t *testing.T) {
 					CallKind: adapter_integration.REPORT,
 					Attrs: map[string]interface{}{
 						"api.protocol":              "http",
-						"context.protocol":          "tcp",
+						"context.protocol":          "http",
 						"context.reporter.kind":     "outbound",
 						"destination.ip":            []byte(net.ParseIP("10.0.0.2")),
 						"destination.name":          "destsvc",
@@ -92,7 +92,7 @@ func TestReportTraces(t *testing.T) {
 					CallKind: adapter_integration.REPORT,
 					Attrs: map[string]interface{}{
 						"api.protocol":          "http",
-						"context.protocol":      "tcp",
+						"context.protocol":      "http",
 						"context.reporter.kind": "inbound",
 						"destination.ip":        []byte(net.ParseIP("10.0.0.3")),
 						"destination.service":   "destsvc",
@@ -119,7 +119,7 @@ func TestReportTraces(t *testing.T) {
 					CallKind: adapter_integration.REPORT,
 					Attrs: map[string]interface{}{
 						"api.protocol":          "http",
-						"context.protocol":      "tcp",
+						"context.protocol":      "http",
 						"context.reporter.kind": "outbound",
 						"destination.ip":        []byte(net.ParseIP("10.0.0.3")),
 						"destination.service":   "destsvc",

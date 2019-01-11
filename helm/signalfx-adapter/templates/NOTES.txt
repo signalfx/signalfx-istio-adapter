@@ -1,0 +1,7 @@
+The SignalFx Istio adapter has been deployed.  You should see spans in SignalFx
+momentarily assuming everything is setup properly.
+
+If you do not see spans, you can check logs on the adapter by running:
+
+$ kubectl logs -n {{ .Release.Namespace }} -l app.kubernetes.io/name={{ include "signalfx-istio.name" . }}
+

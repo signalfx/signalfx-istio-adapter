@@ -1,0 +1,66 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ include "signalfx-istio.fullname" . }}
+  namespace: istio-system
+  labels:
+    app.kubernetes.io/name: {{ include "signalfx-istio.name" . }}
+    helm.sh/chart: {{ include "signalfx-istio.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "signalfx-istio.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  replicas: {{.Values.replicas}}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "signalfx-istio.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+      annotations:
+        sidecar.istio.io/inject: "false"
+        scheduler.alpha.kubernetes.io/critical-pod: ""
+    spec:
+      containers:
+      - name: adapter
+        image: "{{ .Values.imageRepository }}:{{ .Values.imageTag }}"
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{- if .Values.accessToken }}
+        {{- else if .Values.accessTokenSecret }}
+        env:
+          - name: SIGNALFX_ACCESS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.accessTokenSecret.name }}
+                key: {{ .Values.accessTokenSecret.key }}
+        {{- else }}
+          {{- required "Either 'accessToken' or 'accessTokenSecret' must be specified" .Values.accessTokenSecret }}
+        {{- end }}
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 20
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 2
+          periodSeconds: 20
+        resources:
+{{ toYaml .Values.resources | trim | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | trim | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | trim | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | trim | indent 8 }}
+    {{- end }}

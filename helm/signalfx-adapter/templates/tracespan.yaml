@@ -1,0 +1,27 @@
+apiVersion: "config.istio.io/v1alpha2"
+kind: instance
+metadata:
+  name: signalfxtracespan
+  namespace: istio-system
+spec:
+  template: tracespan
+  params:
+    {{- with .Values.tracespanParams }}
+{{ toYaml . | indent 4 }}
+    {{- else }}
+    traceId: request.headers["x-b3-traceid"] | ""
+    spanId: request.headers["x-b3-spanid"] | ""
+    parentSpanId: request.headers["x-b3-parentspanid"] | ""
+    spanName: {{ .Values.spanNameAttribute }}
+    startTime: request.time
+    endTime: response.time
+    # If this is >=500, the span will get an 'error' tag
+    httpStatusCode: response.code | 0
+    clientSpan: context.reporter.kind == "outbound"
+    # Among these span tags are a few special ones that are used to populate
+    # the localEndpoint and remoteEndpoint fields of the SignalFx span format.
+    # Which tags are used is controlled in the handler config under the
+    # `tracingConfig` section.
+    spanTags:
+{{ toYaml .Values.spanTags | trim | indent 6 }}
+    {{- end }}
