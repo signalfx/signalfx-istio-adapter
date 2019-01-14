@@ -9,4 +9,4 @@ spec:
   - handler: signalfx.istio-system
     instances:
     - signalfxtracespan
-  match: "true"
+  match: context.protocol == "http" || context.protocol == "grpc"
