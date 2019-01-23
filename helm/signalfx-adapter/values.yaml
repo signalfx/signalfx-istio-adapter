@@ -45,7 +45,6 @@ tracingConfig:
   localEndpointIpTagKey: source.ip
   remoteEndpointNameTagKey: destination.workload.name
   remoteEndpointIpTagKey: destination.ip
-  sample_probability: 1.0
 
 imageRepository: quay.io/signalfx/istio-adapter
 imageTag: 0.1.0
@@ -78,6 +77,14 @@ spanNameAttribute: 'request.path | "/"'
 # This will replace the entire block within the tracespan.spec.params block
 # within the tracespan instance used by the adapter.
 tracespanParams:
+
+# The expression to use in the tracespan rule that Istio uses to determine
+# whether to send it to the adapter.
+tracespanMatchQuery: '(context.protocol == "http" || context.protocol == "grpc") && request.host != "mixer"'
+
+# The Istio attribute expression (can be string) used to derive the
+# 'rewriteClientSpanId' field on trace spans
+rewriteClientSpanIdExpression: true
 
 spanTags:
   # This gets put into the remoteEndpoint.ipv4 field

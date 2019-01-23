@@ -16,7 +16,8 @@ spec:
     endTime: response.time
     # If this is >=500, the span will get an 'error' tag
     httpStatusCode: response.code | 0
-    clientSpan: context.reporter.kind == "outbound"
+    rewriteClientSpanId: true
+    clientSpan: (context.reporter.kind | "inbound") == "outbound"
     # Among these span tags are a few special ones that are used to populate
     # the localEndpoint and remoteEndpoint fields of the SignalFx span format.
     # Which tags are used is controlled in the handler config under the

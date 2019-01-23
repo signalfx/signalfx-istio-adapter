@@ -48,10 +48,6 @@ func Validate(conf *Params) error {
 			ce = ce.Appendf("tracing", "must be specified if tracing is enabled")
 		}
 
-		if conf.Tracing.SampleProbability < 0 || conf.Tracing.SampleProbability > 1.0 {
-			ce = ce.Appendf("tracing.sample_probability", "must be between 0.0 and 1.0 inclusive")
-		}
-
 		if conf.Tracing.BufferSize <= 0 {
 			ce = ce.Appendf("tracing.buffer_size", "must be greater than 0")
 		}

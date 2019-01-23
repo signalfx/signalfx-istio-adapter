@@ -237,17 +237,6 @@ if needed.  An error message will be logged if spans are dropped.</p>
 
 </td>
 </tr>
-<tr id="Params-TracingConfig-sample_probability">
-<td><code>sampleProbability</code></td>
-<td><code>double</code></td>
-<td>
-<p>Optional. The uniform probability ([0.0, 1.0]) that a given span gets
-sampled if its parent was not already sampled.  Child spans will always
-be sampled if their parent is.  If not provided, defaults to sending all
-spans.</p>
-
-</td>
-</tr>
 <tr id="Params-TracingConfig-local_endpoint_name_tag_key">
 <td><code>localEndpointNameTagKey</code></td>
 <td><code>string</code></td>

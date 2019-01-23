@@ -18,10 +18,12 @@ import (
 	"context"
 	"net"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 	"time"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/gogo/protobuf/types"
 	"github.com/golang/glog"
 	"github.com/signalfx/golib/errors"
@@ -29,7 +31,6 @@ import (
 	"github.com/signalfx/golib/sfxclient"
 	"github.com/signalfx/golib/trace"
 	"github.com/signalfx/signalfx-istio-adapter/signalfx/config"
-	octrace "go.opencensus.io/trace"
 
 	mixer_v1beta1 "istio.io/api/mixer/adapter/model/v1beta1"
 	"istio.io/istio/mixer/pkg/adapter"
@@ -45,7 +46,6 @@ type traceSpanHandler struct {
 	cancel   context.CancelFunc
 	sink     *sfxclient.HTTPSink
 	spanChan chan *tracespan.InstanceMsg
-	sampler  octrace.Sampler
 	conf     *config.Params_TracingConfig
 }
 
@@ -57,21 +57,17 @@ func createTracingHandler(conf *config.Params) (*traceSpanHandler, error) {
 			conf: conf.Tracing,
 		}
 
-		if err := traceSpanHandlerInst.InitTracing(int(conf.Tracing.BufferSize), conf.Tracing.SampleProbability); err != nil {
+		if err := traceSpanHandlerInst.InitTracing(int(conf.Tracing.BufferSize)); err != nil {
 			return nil, err
 		}
 	}
 	return traceSpanHandlerInst, nil
 }
 
-func (th *traceSpanHandler) InitTracing(bufferLen int, sampleProbability float64) error {
+func (th *traceSpanHandler) InitTracing(bufferLen int) error {
 	th.ctx, th.cancel = context.WithCancel(context.Background())
 
 	th.spanChan = make(chan *tracespan.InstanceMsg, bufferLen)
-
-	// Use the OpenCensus span sampler even though we don't use its wire
-	// format.
-	th.sampler = octrace.ProbabilitySampler(sampleProbability)
 
 	go th.sendTraces()
 	return nil
@@ -133,8 +129,9 @@ func (th *traceSpanHandler) HandleTraceSpan(ctx context.Context, req *tracespan.
 
 	for i := range req.Instances {
 		span := req.Instances[i]
-		if !th.shouldSend(span) {
-			continue
+
+		if os.Getenv("SIGNALFX_TRACE_DUMP") == "true" {
+			spew.Dump(span, "\n")
 		}
 
 		select {
@@ -149,26 +146,6 @@ func (th *traceSpanHandler) HandleTraceSpan(ctx context.Context, req *tracespan.
 	return &mixer_v1beta1.ReportResult{}, nil
 }
 
-func (th *traceSpanHandler) shouldSend(span *tracespan.InstanceMsg) bool {
-	parentContext, ok := adapter.ExtractParentContext(span.TraceId, span.ParentSpanId)
-	if !ok {
-		return false
-	}
-	spanContext, ok := adapter.ExtractSpanContext(span.SpanId, parentContext)
-	if !ok {
-		return false
-	}
-
-	params := octrace.SamplingParameters{
-		ParentContext:   parentContext,
-		TraceID:         spanContext.TraceID,
-		SpanID:          spanContext.SpanID,
-		Name:            span.SpanName,
-		HasRemoteParent: true,
-	}
-	return th.sampler(params).Sample
-}
-
 var (
 	clientKind = "CLIENT"
 	serverKind = "SERVER"
@@ -177,6 +154,21 @@ var (
 // Converts an istio span to a SignalFx span, which is currently equivalent to
 // a Zipkin V2 span.
 func (th *traceSpanHandler) convertInstance(istioSpan *tracespan.InstanceMsg) *trace.Span {
+	outSpanID := istioSpan.SpanId
+	outParentSpanID := istioSpan.ParentSpanId
+
+	// Fix up span ids so that client/server spans don't share the same span
+	// ID, if the span has this flag marked.
+	if istioSpan.RewriteClientSpanId {
+		if istioSpan.ClientSpan {
+			outSpanID = deriveNewSpanID(istioSpan.SpanId)
+		} else {
+			// We need to make the parent of this server span the client span
+			// that was rewritten.
+			outParentSpanID = deriveNewSpanID(istioSpan.SpanId)
+		}
+	}
+
 	startTime, err := types.TimestampFromProto(istioSpan.StartTime.GetValue())
 	if err != nil {
 		glog.Error("Couldn't convert span start time: ", err)
@@ -219,7 +211,7 @@ func (th *traceSpanHandler) convertInstance(istioSpan *tracespan.InstanceMsg) *t
 	}
 
 	span := &trace.Span{
-		ID:             istioSpan.SpanId,
+		ID:             outSpanID,
 		Name:           &spanName,
 		TraceID:        istioSpan.TraceId,
 		Kind:           kind,
@@ -248,9 +240,44 @@ func (th *traceSpanHandler) convertInstance(istioSpan *tracespan.InstanceMsg) *t
 		span.RemoteEndpoint.Ipv4 = &ips
 	}
 
-	if istioSpan.ParentSpanId != "" {
-		span.ParentID = &istioSpan.ParentSpanId
+	if outParentSpanID != "" {
+		span.ParentID = &outParentSpanID
 	}
 
 	return span
+}
+
+var hexMapper = map[rune]rune{
+	'0': '1',
+	'1': '2',
+	'2': '3',
+	'3': '4',
+	'4': '5',
+	'5': '6',
+	'6': '7',
+	'7': '8',
+	'8': '9',
+	'9': 'a',
+	'a': 'b',
+	'b': 'c',
+	'c': 'd',
+	'd': 'e',
+	'e': 'f',
+	'f': '0',
+	'A': 'b',
+	'B': 'c',
+	'C': 'd',
+	'D': 'e',
+	'E': 'f',
+	'F': '0',
+}
+
+// This applies a simple Caeser cypher that shifts the hex characters by one
+// forward.  If spanID contains non-hex chars, the output is undefined.
+func deriveNewSpanID(spanID string) string {
+	var newSpanIDBuilder strings.Builder
+	for _, r := range spanID {
+		newSpanIDBuilder.WriteRune(hexMapper[r])
+	}
+	return newSpanIDBuilder.String()
 }

@@ -69,8 +69,7 @@ func parseConfig(rawConfig *google_protobuf2.Any) (*config.Params, error) {
 		EnableTracing:     true,
 		DatapointInterval: 10 * time.Second,
 		Tracing: &config.Params_TracingConfig{
-			BufferSize:        1000,
-			SampleProbability: 1.0,
+			BufferSize: 1000,
 		},
 	}
 	err := cfg.Unmarshal(rawConfig.Value)
