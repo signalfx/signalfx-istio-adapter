@@ -70,7 +70,7 @@ func TestReportTraces(t *testing.T) {
 						"destination.workload.name": "destsvcworkload",
 						"request.headers": map[string]string{
 							"x-b3-traceid": "463ac35c9f6413ad48485a3953bb6124",
-							"x-b3-spanid":  "a2fb4a1d1a96d312",
+							"x-b3-spanid":  "fedcba9876543210",
 						},
 						"request.host":         "example.istio.com",
 						"request.method":       "POST",
@@ -99,7 +99,7 @@ func TestReportTraces(t *testing.T) {
 						"request.headers": map[string]string{
 							"x-b3-traceid":      "463ac35c9f6413ad48485a3953bb6124",
 							"x-b3-spanid":       "b3a9b83bb2b3098f",
-							"x-b3-parentspanid": "a2fb4a1d1a96d312",
+							"x-b3-parentspanid": "fedcba9876543210",
 						},
 						"request.host":      "example.istio.com",
 						"request.method":    "POST",
@@ -126,7 +126,7 @@ func TestReportTraces(t *testing.T) {
 						"request.headers": map[string]string{
 							"x-b3-traceid":      "463ac35c9f6413ad48485a3953bb6124",
 							"x-b3-spanid":       "abcdef0123456789",
-							"x-b3-parentspanid": "a2fb4a1d1a96d312",
+							"x-b3-parentspanid": "fedcba9876543210",
 						},
 						"request.host":      "example.istio.com",
 						"request.method":    "POST",
@@ -174,7 +174,7 @@ func TestReportTraces(t *testing.T) {
                    "annotations": null,
                    "debug": null,
                    "duration": 100000,
-                   "id": "a2fb4a1d1a96d312",
+                   "id": "0fedcba987654321",
                    "kind": "CLIENT",
                    "localEndpoint": {
                     "ipv4": "10.0.0.1",
@@ -225,7 +225,7 @@ func TestReportTraces(t *testing.T) {
                     "serviceName": "unknown"
                    },
                    "name": "/bar/baz",
-                   "parentId": "a2fb4a1d1a96d312",
+                   "parentId": "c4bac94cc3c41a90",
                    "remoteEndpoint": {
                     "ipv4": "10.0.0.3",
                     "ipv6": null,
@@ -258,7 +258,7 @@ func TestReportTraces(t *testing.T) {
                    "annotations": null,
                    "debug": null,
                    "duration": 105000,
-                   "id": "abcdef0123456789",
+                   "id": "bcdef0123456789a",
                    "kind": "CLIENT",
                    "localEndpoint": {
                     "ipv4": "10.0.0.2",
@@ -267,7 +267,7 @@ func TestReportTraces(t *testing.T) {
                     "serviceName": "unknown"
                    },
                    "name": "/bar/baz",
-                   "parentId": "a2fb4a1d1a96d312",
+                   "parentId": "fedcba9876543210",
                    "remoteEndpoint": {
                     "ipv4": "10.0.0.3",
                     "ipv6": null,

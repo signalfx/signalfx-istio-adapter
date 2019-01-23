@@ -211,7 +211,7 @@ func TestReportMetrics(t *testing.T) {
 			},
 
 			GetState: func(_ interface{}) (interface{}, error) {
-				ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+				ctx, cancel := context.WithTimeout(context.Background(), 25*time.Second)
 				var dps []*sfxproto.DataPoint
 				for {
 					select {

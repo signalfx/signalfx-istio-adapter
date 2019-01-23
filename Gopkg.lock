@@ -931,6 +931,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/davecgh/go-spew/spew",
     "github.com/gogo/googleapis/google/rpc",
     "github.com/gogo/protobuf/gogoproto",
     "github.com/gogo/protobuf/proto",
@@ -944,7 +945,6 @@
     "github.com/signalfx/golib/pointer",
     "github.com/signalfx/golib/sfxclient",
     "github.com/signalfx/golib/trace",
-    "go.opencensus.io/trace",
     "google.golang.org/grpc",
     "istio.io/api/mixer/adapter/model/v1beta1",
     "istio.io/api/policy/v1beta1",

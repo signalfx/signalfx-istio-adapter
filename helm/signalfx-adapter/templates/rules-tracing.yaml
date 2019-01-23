@@ -8,4 +8,4 @@ spec:
   - handler: signalfx.istio-system
     instances:
     - signalfxtracespan
-  match: context.protocol == "http" || context.protocol == "grpc"
+  match: {{ .Values.tracespanMatchQuery }}
