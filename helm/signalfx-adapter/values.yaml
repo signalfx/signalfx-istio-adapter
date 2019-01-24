@@ -47,7 +47,7 @@ tracingConfig:
   remoteEndpointIpTagKey: destination.ip
 
 imageRepository: quay.io/signalfx/istio-adapter
-imageTag: 0.1.0
+imageTag: 0.2.0
 imagePullPolicy: Always
 
 nameOverride: ""
