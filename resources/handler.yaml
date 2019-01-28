@@ -38,3 +38,4 @@ spec:
       localEndpointNameTagKey: source.workload.name
       remoteEndpointIpTagKey: destination.ip
       remoteEndpointNameTagKey: destination.workload.name
+      swapLocalRemoteEndpoints: true

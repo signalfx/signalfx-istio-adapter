@@ -219,7 +219,7 @@ func TestReportTraces(t *testing.T) {
                    "id": "b3a9b83bb2b3098f",
                    "kind": "SERVER",
                    "localEndpoint": {
-                    "ipv4": "10.0.0.2",
+                    "ipv4": "10.0.0.3",
                     "ipv6": null,
                     "port": null,
                     "serviceName": "unknown"
@@ -227,7 +227,7 @@ func TestReportTraces(t *testing.T) {
                    "name": "/bar/baz",
                    "parentId": "c4bac94cc3c41a90",
                    "remoteEndpoint": {
-                    "ipv4": "10.0.0.3",
+                    "ipv4": "10.0.0.2",
                     "ipv6": null,
                     "port": null,
                     "serviceName": "unknown"
