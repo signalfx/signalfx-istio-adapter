@@ -134,31 +134,31 @@ message Params {
     // be sent, unless otherwise disabled).
     bool enable_tracing = 6;
 
-	// Configuration for the Trace Span handler
-	TracingConfig tracing = 7;
+    // Configuration for the Trace Span handler
+    TracingConfig tracing = 7;
 
-	// Holds all of the tracing-specific configuration
-	message TracingConfig {
-		// Optional.  The number of trace spans that the adapter will buffer before
-		// dropping them.  This defaults to 1000 spans but can be configured higher
-		// if needed.  An error message will be logged if spans are dropped.
-		uint32 buffer_size = 1;
+    // Holds all of the tracing-specific configuration
+    message TracingConfig {
+        // Optional.  The number of trace spans that the adapter will buffer before
+        // dropping them.  This defaults to 1000 spans but can be configured higher
+        // if needed.  An error message will be logged if spans are dropped.
+        uint32 buffer_size = 1;
 
-		// The span tag that is used as the value of the localEndpoint.serviceName
-		// field of the span sent to SignalFx
-		string local_endpoint_name_tag_key = 3;
+        // The span tag that is used as the value of the localEndpoint.serviceName
+        // field of the span sent to SignalFx
+        string local_endpoint_name_tag_key = 3;
 
-		// The span tag that is used as the value of the localEndpoint.ipv4
-		// field of the span sent to SignalFx
-		string local_endpoint_ip_tag_key = 4;
+        // The span tag that is used as the value of the localEndpoint.ipv4
+        // field of the span sent to SignalFx
+        string local_endpoint_ip_tag_key = 4;
 
-		// The span tag that is used as the value of the remoteEndpoint.serviceName
-		// field of the span sent to SignalFx
-		string remote_endpoint_name_tag_key = 5;
+        // The span tag that is used as the value of the remoteEndpoint.serviceName
+        // field of the span sent to SignalFx
+        string remote_endpoint_name_tag_key = 5;
 
-		// The span tag that is used as the value of the remoteEndpoint.ipv4
-		// field of the span sent to SignalFx
-		string remote_endpoint_ip_tag_key = 6;
+        // The span tag that is used as the value of the remoteEndpoint.ipv4
+        // field of the span sent to SignalFx
+        string remote_endpoint_ip_tag_key = 6;
 
         // If true, the local and remote endpoints will be swapped for
         // non-client spans.  This means that the above config options for
@@ -167,5 +167,5 @@ message Params {
         // instance that is used with this adapter determines what is a
         // "client" vs a "server" span.
         bool swap_local_remote_endpoints = 7;
-	}
+    }
 }
