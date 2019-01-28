@@ -273,6 +273,19 @@ field of the span sent to SignalFx</p>
 
 </td>
 </tr>
+<tr id="Params-TracingConfig-swap_local_remote_endpoints">
+<td><code>swapLocalRemoteEndpoints</code></td>
+<td><code>bool</code></td>
+<td>
+<p>If true, the local and remote endpoints will be swapped for
+non-client spans.  This means that the above config options for
+[local/remote]<em>endpoint</em>[name/ip]<em>tag</em>key with have a reversed
+meaning for server spans.  The <code>clientSpan</code> field in the <code>tracespan</code>
+instance that is used with this adapter determines what is a
+&ldquo;client&rdquo; vs a &ldquo;server&rdquo; span.</p>
+
+</td>
+</tr>
 </tbody>
 </table>
 </section>

@@ -159,5 +159,13 @@ message Params {
 		// The span tag that is used as the value of the remoteEndpoint.ipv4
 		// field of the span sent to SignalFx
 		string remote_endpoint_ip_tag_key = 6;
+
+        // If true, the local and remote endpoints will be swapped for
+        // non-client spans.  This means that the above config options for
+        // [local/remote]_endpoint_[name/ip]_tag_key with have a reversed
+        // meaning for server spans.  The `clientSpan` field in the `tracespan`
+        // instance that is used with this adapter determines what is a
+        // "client" vs a "server" span.
+        bool swap_local_remote_endpoints = 7;
 	}
 }

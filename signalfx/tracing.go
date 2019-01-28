@@ -33,6 +33,7 @@ import (
 	"github.com/signalfx/signalfx-istio-adapter/signalfx/config"
 
 	mixer_v1beta1 "istio.io/api/mixer/adapter/model/v1beta1"
+	istio_policy_v1beta1 "istio.io/api/policy/v1beta1"
 	"istio.io/istio/mixer/pkg/adapter"
 	"istio.io/istio/mixer/template/tracespan"
 )
@@ -222,22 +223,14 @@ func (th *traceSpanHandler) convertInstance(istioSpan *tracespan.InstanceMsg) *t
 		RemoteEndpoint: &trace.Endpoint{},
 	}
 
-	if n, ok := decodeValue(istioSpan.SpanTags[th.conf.LocalEndpointNameTagKey]).(string); ok && n != "" {
-		span.LocalEndpoint.ServiceName = &n
-	}
+	needsEndpointSwap := !istioSpan.ClientSpan && th.conf.SwapLocalRemoteEndpoints
 
-	if ip, ok := decodeValue(istioSpan.SpanTags[th.conf.LocalEndpointIpTagKey]).(net.IP); ok {
-		ips := ip.String()
-		span.LocalEndpoint.Ipv4 = &ips
-	}
-
-	if n, ok := decodeValue(istioSpan.SpanTags[th.conf.RemoteEndpointNameTagKey]).(string); ok && n != "" {
-		span.RemoteEndpoint.ServiceName = &n
-	}
-
-	if ip, ok := decodeValue(istioSpan.SpanTags[th.conf.RemoteEndpointIpTagKey]).(net.IP); ok {
-		ips := ip.String()
-		span.RemoteEndpoint.Ipv4 = &ips
+	if needsEndpointSwap {
+		th.populateLocalEndpoint(istioSpan.SpanTags, span.RemoteEndpoint)
+		th.populateRemoteEndpoint(istioSpan.SpanTags, span.LocalEndpoint)
+	} else {
+		th.populateLocalEndpoint(istioSpan.SpanTags, span.LocalEndpoint)
+		th.populateRemoteEndpoint(istioSpan.SpanTags, span.RemoteEndpoint)
 	}
 
 	if outParentSpanID != "" {
@@ -245,6 +238,28 @@ func (th *traceSpanHandler) convertInstance(istioSpan *tracespan.InstanceMsg) *t
 	}
 
 	return span
+}
+
+func (th *traceSpanHandler) populateLocalEndpoint(spanTags map[string]*istio_policy_v1beta1.Value, localEndpoint *trace.Endpoint) {
+	if n, ok := decodeValue(spanTags[th.conf.LocalEndpointNameTagKey]).(string); ok && n != "" {
+		localEndpoint.ServiceName = &n
+	}
+
+	if ip, ok := decodeValue(spanTags[th.conf.LocalEndpointIpTagKey]).(net.IP); ok {
+		ips := ip.String()
+		localEndpoint.Ipv4 = &ips
+	}
+}
+
+func (th *traceSpanHandler) populateRemoteEndpoint(spanTags map[string]*istio_policy_v1beta1.Value, remoteEndpoint *trace.Endpoint) {
+	if n, ok := decodeValue(spanTags[th.conf.RemoteEndpointNameTagKey]).(string); ok && n != "" {
+		remoteEndpoint.ServiceName = &n
+	}
+
+	if ip, ok := decodeValue(spanTags[th.conf.RemoteEndpointIpTagKey]).(net.IP); ok {
+		ips := ip.String()
+		remoteEndpoint.Ipv4 = &ips
+	}
 }
 
 var hexMapper = map[rune]rune{
