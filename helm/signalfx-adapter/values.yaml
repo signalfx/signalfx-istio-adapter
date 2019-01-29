@@ -48,7 +48,7 @@ tracingConfig:
   swapLocalRemoteEndpoints: true
 
 imageRepository: quay.io/signalfx/istio-adapter
-imageTag: 0.2.0
+imageTag: 0.3.0
 imagePullPolicy: Always
 
 nameOverride: ""
