@@ -1,5 +1,5 @@
 ---
-# Source: signalfx-adapter/templates/metric-instances.yaml
+# Source: signalfx-istio-adapter/templates/metric-instances.yaml
 apiVersion: "config.istio.io/v1alpha2"
 kind: instance
 metadata:

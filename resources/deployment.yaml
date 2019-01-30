@@ -1,5 +1,5 @@
 ---
-# Source: signalfx-adapter/templates/deployment.yaml
+# Source: signalfx-istio-adapter/templates/deployment.yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:

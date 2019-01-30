@@ -4,13 +4,14 @@ set -euxo pipefail
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-templates=$(find $SCRIPT_DIR/helm/signalfx-adapter/templates -name "*.yaml" | xargs -n1 basename)
+templates=$(find $SCRIPT_DIR/helm/signalfx-istio-adapter/templates -name "*.yaml" | xargs -n1 basename)
 for f in $templates; do
   helm template \
     --set-string accessToken=MY_ACCESS_TOKEN \
     --set-string fullnameOverride=signalfx-adapter \
+    --set-string nameOverride=signalfx-adapter \
     -x templates/$f \
-    helm/signalfx-adapter | \
+    helm/signalfx-istio-adapter | \
       grep -v 'helm.sh/chart:' | \
       grep -v 'namespace: signalfx-agent' | \
       grep -v 'managed-by: Tiller' | \

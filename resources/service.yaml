@@ -1,5 +1,5 @@
 ---
-# Source: signalfx-adapter/templates/service.yaml
+# Source: signalfx-istio-adapter/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:

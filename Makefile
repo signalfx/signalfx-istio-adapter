@@ -11,5 +11,5 @@ image:
 
 .PHONY: resources
 resources:
-	cp ./signalfx/config/signalfx.yaml helm/signalfx-adapter/templates/adapter.yaml
+	cp ./signalfx/config/signalfx.yaml helm/signalfx-istio-adapter/templates/adapter.yaml
 	./resources-from-helm
