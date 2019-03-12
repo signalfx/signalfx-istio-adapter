@@ -85,7 +85,7 @@ tracespanMatchQuery: '(context.protocol == "http" || context.protocol == "grpc")
 
 # The Istio attribute expression (can be string) used to derive the
 # 'rewriteClientSpanId' field on trace spans
-rewriteClientSpanIdExpression: true
+rewriteClientSpanIdExpression: false
 
 spanTags:
   # This gets put into the remoteEndpoint.ipv4 field
