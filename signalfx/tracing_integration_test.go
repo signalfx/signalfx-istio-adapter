@@ -174,7 +174,7 @@ func TestReportTraces(t *testing.T) {
                    "annotations": null,
                    "debug": null,
                    "duration": 100000,
-                   "id": "0fedcba987654321",
+                   "id": "fedcba9876543210",
                    "kind": "CLIENT",
                    "localEndpoint": {
                     "ipv4": "10.0.0.1",
@@ -225,7 +225,7 @@ func TestReportTraces(t *testing.T) {
                     "serviceName": "unknown"
                    },
                    "name": "/bar/baz",
-                   "parentId": "c4bac94cc3c41a90",
+                   "parentId": "fedcba9876543210",
                    "remoteEndpoint": {
                     "ipv4": "10.0.0.2",
                     "ipv6": null,
@@ -258,7 +258,7 @@ func TestReportTraces(t *testing.T) {
                    "annotations": null,
                    "debug": null,
                    "duration": 105000,
-                   "id": "bcdef0123456789a",
+                   "id": "abcdef0123456789",
                    "kind": "CLIENT",
                    "localEndpoint": {
                     "ipv4": "10.0.0.2",
