@@ -11,6 +11,9 @@ spec:
       {{- with .Values.metricDimensions }}
 {{ toYaml . | trim | indent 6 }}
       {{- end }}
+      {{- with .Values.globalDimensions }}
+{{ toYaml . | trim | indent 6 }}
+      {{- end }}
     monitored_resource_type: '"UNSPECIFIED"'
 ---
 apiVersion: "config.istio.io/v1alpha2"
@@ -24,6 +27,9 @@ spec:
     value: response.duration | "0ms"
     dimensions:
       {{- with .Values.metricDimensions }}
+{{ toYaml . | trim | indent 6 }}
+      {{- end }}
+      {{- with .Values.globalDimensions }}
 {{ toYaml . | trim | indent 6 }}
       {{- end }}
     monitored_resource_type: '"UNSPECIFIED"'
@@ -41,6 +47,9 @@ spec:
       {{- with .Values.metricDimensions }}
 {{ toYaml . | trim | indent 6 }}
       {{- end }}
+      {{- with .Values.globalDimensions }}
+{{ toYaml . | trim | indent 6 }}
+      {{- end }}
     monitored_resource_type: '"UNSPECIFIED"'
 ---
 apiVersion: "config.istio.io/v1alpha2"
@@ -54,6 +63,9 @@ spec:
     value: response.size | 0
     dimensions:
       {{- with .Values.metricDimensions }}
+{{ toYaml . | trim | indent 6 }}
+      {{- end }}
+      {{- with .Values.globalDimensions }}
 {{ toYaml . | trim | indent 6 }}
       {{- end }}
     monitored_resource_type: '"UNSPECIFIED"'
@@ -71,6 +83,9 @@ spec:
       {{- with .Values.metricDimensions }}
 {{ toYaml . | trim | indent 6 }}
       {{- end }}
+      {{- with .Values.globalDimensions }}
+{{ toYaml . | trim | indent 6 }}
+      {{- end }}
     monitored_resource_type: '"UNSPECIFIED"'
 ---
 apiVersion: "config.istio.io/v1alpha2"
@@ -84,6 +99,9 @@ spec:
     value: connection.received.bytes | 0
     dimensions:
       {{- with .Values.metricDimensions }}
+{{ toYaml . | trim | indent 6 }}
+      {{- end }}
+      {{- with .Values.globalDimensions }}
 {{ toYaml . | trim | indent 6 }}
       {{- end }}
     monitored_resource_type: '"UNSPECIFIED"'

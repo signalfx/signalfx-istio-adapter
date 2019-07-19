@@ -25,6 +25,11 @@ datapointInterval: 10s
 enableMetrics: true
 enableTracing: true
 
+# Map of key/value pairs to report along with metrics, for example:
+# kubernetes_cluster: my-cluster-1
+# foo: bar 
+globalDimensions:
+
 metricConfig:
   - name: requestcount.instance.istio-system
     type: COUNTER

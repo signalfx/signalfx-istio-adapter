@@ -11,6 +11,23 @@ deployment but should theoretically work outside of K8s with some small tweaks.
 To deploy this adapter, you can either use the resource files from the
 `resources/` directory directly, or you can use the included Helm chart.
 
+### Configuring the ingest endpoint for your realm
+A realm is a self-contained deployment of SignalFx in which your organization is hosted.
+Different realms have different API endpoints.
+For example, the endpoint for sending data in the us1 realm is ingest.us1.signalfx.com,
+and ingest.eu0.signalfx.com for the eu0 realm. If you try to send data to the incorrect realm,
+your access token will be denied.
+
+> By default, this plugin sends to the us0 realm
+
+To determine what realm you are in, check your profile page in the SignalFx web application.
+
+To change the ingest endpoint to your realm, you can override the `ingestUrl` config option:
+
+```
+ingestUrl: https://ingest.YOUR_SIGNALFX_REALM.signalfx.com
+```
+
 ### Non-Helm
 If you aren't using Helm, simply apply the resource in the `resources/` dir of
 this repo to your Kubernetes cluster like so:
@@ -31,12 +48,37 @@ To install the chart with Helm, run something like the following command:
 
 `$ helm install --name signalfx-adapter --set fullnameOverride=signalfx-adapter --namespace istio-system --set-string accessToken=MY_ORG_ACCESS_TOKEN ./helm/signalfx-adapter/`
 
+or, if using your own values config file:
+
+`$ helm install --name signalfx-adapter -f my_config_values.yaml`
+
 This assumes you only want to deploy one release of the adapter (the normal
 case), and so it overrides the name to avoid the Helm auto-generated names.
 You will need to replace `MY_ORG_ACCESS_TOKEN` with the appropriate value, or
 you can add a Secret resource, in which case you must set the values
 `accessTokenSecret.name` and `accessTokenSecret.value` when deploying the
 chart.
+
+#### Adding dimensions to your metrics
+You can add any global dimensions you want to the metrics produced by the adapter by
+using the `globalDimensions` config. For example, if you are using the [SignalFx
+Smart Agent](https://docs.signalfx.com/en/latest/integrations/agent/kubernetes-setup.html) 
+to monitor a Kubernetes cluster, you can associate the istio metrics
+with the Smart Agent Kubernetes metrics by adding the `kubernetes_cluster` dimension:
+
+```
+globalDimensions:
+  kubernetes_cluster: '"istio-cluster"'
+```
+
+String should be wrapped in double and single quotes. This is neccesary to support dynamic
+values, such as:
+
+```
+globalDimensions:
+  source_app: source.labels["app"] | "unknown"
+```
+
 
 ## Releasing a new version (until CircleCI job is added)
 
