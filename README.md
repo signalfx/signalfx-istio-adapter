@@ -18,7 +18,7 @@ For example, the endpoint for sending data in the us1 realm is ingest.us1.signal
 and ingest.eu0.signalfx.com for the eu0 realm. If you try to send data to the incorrect realm,
 your access token will be denied.
 
-> By default, this plugin sends to the us0 realm
+**By default, this plugin sends to the us0 realm**
 
 To determine what realm you are in, check your profile page in the SignalFx web application.
 

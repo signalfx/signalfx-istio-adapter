@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: 0.3.0
 description: SignalFx Istio Out-of-process Adapter Helm chart
 name: signalfx-istio-adapter
-version: 0.0.3
+version: 0.0.4
