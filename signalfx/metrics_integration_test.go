@@ -34,7 +34,7 @@ import (
 
 	"github.com/golang/protobuf/proto"
 	sfxproto "github.com/signalfx/com_signalfx_metrics_protobuf"
-	"github.com/signalfx/golib/trace"
+	"github.com/signalfx/golib/v3/trace"
 
 	adapter_integration "istio.io/istio/mixer/pkg/adapter/test"
 )

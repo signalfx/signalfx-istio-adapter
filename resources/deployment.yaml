@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: adapter
-        image: "quay.io/signalfx/istio-adapter:0.3.0"
+        image: "quay.io/signalfx/istio-adapter:0.4.0"
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

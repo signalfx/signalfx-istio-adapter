@@ -1,17 +1,18 @@
-FROM golang:1.11.1 as builder
+FROM golang:1.14.3 as builder
 
-WORKDIR /go/src/github.com/signalfx/signalfx-istio-adapter/
+WORKDIR /app/
 
-COPY ./vendor ./vendor
+COPY go.mod .
+COPY go.sum .
 COPY ./Makefile ./Makefile
 COPY ./cmd ./cmd
 COPY ./signalfx ./signalfx
 
-RUN make bin/signalfx-istio-adapter
+RUN make build
 
 FROM scratch
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 ENTRYPOINT ["/signalfx-istio-adapter", "-logtostderr"]
 EXPOSE 8080
-COPY --from=builder /go/src/github.com/signalfx/signalfx-istio-adapter/bin/signalfx-istio-adapter /
+COPY --from=builder /app/bin/signalfx-istio-adapter /

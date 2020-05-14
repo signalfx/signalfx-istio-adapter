@@ -26,10 +26,10 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/gogo/protobuf/types"
 	"github.com/golang/glog"
-	"github.com/signalfx/golib/errors"
-	"github.com/signalfx/golib/pointer"
-	"github.com/signalfx/golib/sfxclient"
-	"github.com/signalfx/golib/trace"
+	"github.com/signalfx/golib/v3/errors"
+	"github.com/signalfx/golib/v3/pointer"
+	"github.com/signalfx/golib/v3/sfxclient"
+	"github.com/signalfx/golib/v3/trace"
 	"github.com/signalfx/signalfx-istio-adapter/signalfx/config"
 
 	mixer_v1beta1 "istio.io/api/mixer/adapter/model/v1beta1"
@@ -216,8 +216,8 @@ func (th *traceSpanHandler) convertInstance(istioSpan *tracespan.InstanceMsg) *t
 		Name:           &spanName,
 		TraceID:        istioSpan.TraceId,
 		Kind:           kind,
-		Timestamp:      pointer.Float64(float64(startTime.UnixNano()) / 1000),
-		Duration:       pointer.Float64(float64(endTime.UnixNano()-startTime.UnixNano()) / 1000),
+		Timestamp:      pointer.Int64(startTime.UnixNano() / int64(time.Microsecond)),
+		Duration:       pointer.Int64(endTime.Sub(startTime).Microseconds()),
 		Tags:           tags,
 		LocalEndpoint:  &trace.Endpoint{},
 		RemoteEndpoint: &trace.Endpoint{},
