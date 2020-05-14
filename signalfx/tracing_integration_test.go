@@ -182,7 +182,7 @@ func TestReportTraces(t *testing.T) {
                     "port": null,
                     "serviceName": "srcsvcworkload"
                    },
-                   "name": "/foo/bar",
+                   "name": "http.request",
                    "parentId": null,
                    "remoteEndpoint": {
                     "ipv4": "10.0.0.2",
@@ -224,7 +224,7 @@ func TestReportTraces(t *testing.T) {
                     "port": null,
                     "serviceName": "unknown"
                    },
-                   "name": "/bar/baz",
+                   "name": "http.request",
                    "parentId": "fedcba9876543210",
                    "remoteEndpoint": {
                     "ipv4": "10.0.0.2",
@@ -266,7 +266,7 @@ func TestReportTraces(t *testing.T) {
                     "port": null,
                     "serviceName": "unknown"
                    },
-                   "name": "/bar/baz",
+                   "name": "http.request",
                    "parentId": "fedcba9876543210",
                    "remoteEndpoint": {
                     "ipv4": "10.0.0.3",
@@ -282,7 +282,6 @@ func TestReportTraces(t *testing.T) {
                      "destination.workload.name": "unknown",
                      "error": "server error",
                      "http.status_code": "500",
-                     "q": "whatever",
                      "request.host": "example.istio.com",
                      "request.method": "POST",
                      "request.path": "/bar/baz?q=whatever",

@@ -76,9 +76,8 @@ tolerations: []
 affinity: {}
 
 # This can be overridden to provide a different span (operation) name for
-# generated trace spans.  It defaults to the request path, but this may be too
-# verbose.
-spanNameAttribute: 'request.path | "/"'
+# generated trace spans.  It defaults to a static "http.request" string.
+spanNameAttribute: "'\"http.request\"'"
 
 # This will replace the entire block within the tracespan.spec.params block
 # within the tracespan instance used by the adapter.
