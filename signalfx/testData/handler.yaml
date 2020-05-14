@@ -1,0 +1,43 @@
+---
+# Source: signalfx-istio-adapter/templates/handler.yaml
+apiVersion: "config.istio.io/v1alpha2"
+kind: handler
+metadata:
+  name: signalfx
+  namespace: istio-system
+  labels:
+    app.kubernetes.io/name: signalfx-adapter
+spec:
+  adapter: signalfx
+  connection:
+    address: "signalfx-adapter:8080"
+  params:
+    # This can also be set with the env var SIGNALFX_ACCESS_TOKEN on the
+    # adapter pod.
+    access_token: "MY_ACCESS_TOKEN"
+    ingest_url: "https://ingest.signalfx.com"  # Fill in with base ingest URL or remove to use default
+    datapoint_interval: 10s
+    enable_metrics: true
+    enable_tracing: true
+    metrics:
+    - name: requestcount.instance.istio-system
+      type: COUNTER
+    - name: requestduration.instance.istio-system
+      type: HISTOGRAM
+    - name: requestsize.instance.istio-system
+      type: COUNTER
+    - name: responsesize.instance.istio-system
+      type: COUNTER
+    - name: tcpbytesent.instance.istio-system
+      type: COUNTER
+    - name: tcpbytereceived.instance.istio-system
+      type: COUNTER
+    tracing:
+      buffer_size: 1000
+      localEndpointIpTagKey: source.ip
+      localEndpointNameTagKey: source.workload.name
+      remoteEndpointIpTagKey: destination.ip
+      remoteEndpointNameTagKey: destination.workload.name
+      swapLocalRemoteEndpoints: true
+      globalSpanTags:
+        environment: production

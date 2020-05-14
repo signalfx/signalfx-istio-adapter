@@ -15,7 +15,7 @@
 package signalfx
 
 // nolint: lll
-//go:generate bash -c "cd $GOPATH/src/istio.io/istio/mixer/adapter && test -d ./signalfx && rm -rf signalfx-old && mv signalfx signalfx-old"
+//go:generate bash -c "rm -rf $GOPATH/src/istio.io/istio/mixer/adapter/signalfx"
 //go:generate cp -r $PWD/signalfx $GOPATH/src/istio.io/istio/mixer/adapter/signalfx
 //go:generate $GOPATH/src/istio.io/istio/bin/mixer_codegen.sh -a mixer/adapter/signalfx/config/config.proto -x "-s=false -n signalfx -t metric -t tracespan"
 //go:generate bash -c "cp $GOPATH/src/istio.io/istio/mixer/adapter/signalfx/config/* $PWD/signalfx/config/"

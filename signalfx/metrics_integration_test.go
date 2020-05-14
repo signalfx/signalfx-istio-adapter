@@ -40,7 +40,7 @@ import (
 )
 
 func getConfig(s Server, fakeIngest *fakeSfxIngest) ([]string, error) {
-	operatorCfgBytes, err := ioutil.ReadFile("../resources/handler.yaml")
+	operatorCfgBytes, err := ioutil.ReadFile("./testData/handler.yaml")
 	if err != nil {
 		return nil, err
 	}

@@ -13,3 +13,7 @@ image:
 resources:
 	cp ./signalfx/config/signalfx.yaml helm/signalfx-istio-adapter/templates/adapter.yaml
 	./resources-from-helm
+
+.PHONY: generate
+go-generate:
+	go generate signalfx/signalfx.go

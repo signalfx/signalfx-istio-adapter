@@ -167,5 +167,8 @@ message Params {
         // instance that is used with this adapter determines what is a
         // "client" vs a "server" span.
         bool swap_local_remote_endpoints = 7;
+
+        // Optional. Tags (key:value pairs) that will be added to every span emitted by the agent. 
+        map<string, string> global_span_tags = 8;
     }
 }

@@ -51,6 +51,7 @@ tracingConfig:
   remoteEndpointNameTagKey: destination.workload.name
   remoteEndpointIpTagKey: destination.ip
   swapLocalRemoteEndpoints: true
+  globalSpanTags: {}
 
 imageRepository: quay.io/signalfx/istio-adapter
 imageTag: 0.3.0

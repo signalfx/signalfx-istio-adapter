@@ -17,7 +17,6 @@ package signalfx
 import (
 	"context"
 	"net"
-	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -41,6 +40,9 @@ import (
 // How long to wait for a response from ingest when sending spans.  New spans will
 // buffer during the round trip so we shouldn't wait too long.
 const spanSendTimeout = 8 * time.Second
+
+const tagIstioSpanKey = "istio.span.name"
+const tagSpanName = "http.request"
 
 type traceSpanHandler struct {
 	ctx      context.Context
@@ -185,23 +187,19 @@ func (th *traceSpanHandler) convertInstance(istioSpan *tracespan.InstanceMsg) *t
 	tags := map[string]string{}
 
 	// Special handling for the span name since the Istio attribute that is the
-	// most suited for the span name is request.path which can contain query
-	// params which could cause high cardinality of the span name.
-	spanName := istioSpan.SpanName
-	if strings.Contains(spanName, "?") {
-		idx := strings.LastIndex(spanName, "?")
-		qs := spanName[idx+1:]
-		if vals, err := url.ParseQuery(qs); err == nil {
-			for k, v := range vals {
-				tags[k] = strings.Join(v, "; ")
-			}
-		}
-
-		spanName = spanName[:idx]
-	}
+	// most suited for the span name is request.path which  could cause high
+	// cardinality of the span name.
+	tags[tagIstioSpanKey] = istioSpan.SpanName
+	spanName := tagSpanName
 
 	for k, v := range istioSpan.SpanTags {
 		tags[k] = adapter.Stringify(decodeValue(v))
+	}
+
+	if th.conf.GlobalSpanTags != nil {
+		for k, v := range th.conf.GlobalSpanTags {
+			tags[k] = v
+		}
 	}
 
 	if istioSpan.HttpStatusCode != 0 {

@@ -182,7 +182,7 @@ func TestReportTraces(t *testing.T) {
                     "port": null,
                     "serviceName": "srcsvcworkload"
                    },
-                   "name": "/foo/bar",
+                   "name": "http.request",
                    "parentId": null,
                    "remoteEndpoint": {
                     "ipv4": "10.0.0.2",
@@ -192,6 +192,8 @@ func TestReportTraces(t *testing.T) {
                    },
                    "shared": null,
                    "tags": {
+                     "environment": "production",
+                     "istio.span.name": "/foo/bar",
                      "destination.ip": "10.0.0.2",
                      "destination.name": "destsvc",
                      "destination.namespace": "unknown",
@@ -224,7 +226,7 @@ func TestReportTraces(t *testing.T) {
                     "port": null,
                     "serviceName": "unknown"
                    },
-                   "name": "/bar/baz",
+                   "name": "http.request",
                    "parentId": "fedcba9876543210",
                    "remoteEndpoint": {
                     "ipv4": "10.0.0.2",
@@ -234,6 +236,8 @@ func TestReportTraces(t *testing.T) {
                    },
                    "shared": null,
                    "tags": {
+                     "environment": "production",
+                     "istio.span.name": "/bar/baz",
                      "destination.ip": "10.0.0.3",
                      "destination.name": "unknown",
                      "destination.namespace": "unknown",
@@ -266,7 +270,7 @@ func TestReportTraces(t *testing.T) {
                     "port": null,
                     "serviceName": "unknown"
                    },
-                   "name": "/bar/baz",
+                   "name": "http.request",
                    "parentId": "fedcba9876543210",
                    "remoteEndpoint": {
                     "ipv4": "10.0.0.3",
@@ -276,13 +280,14 @@ func TestReportTraces(t *testing.T) {
                    },
                    "shared": null,
                    "tags": {
+                     "environment": "production",
+                     "istio.span.name": "/bar/baz?q=whatever",
                      "destination.ip": "10.0.0.3",
                      "destination.name": "unknown",
                      "destination.namespace": "unknown",
                      "destination.workload.name": "unknown",
                      "error": "server error",
                      "http.status_code": "500",
-                     "q": "whatever",
                      "request.host": "example.istio.com",
                      "request.method": "POST",
                      "request.path": "/bar/baz?q=whatever",
