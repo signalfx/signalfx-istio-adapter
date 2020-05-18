@@ -11,7 +11,7 @@ spec:
     traceId: request.headers["x-b3-traceid"] | ""
     spanId: request.headers["x-b3-spanid"] | ""
     parentSpanId: request.headers["x-b3-parentspanid"] | ""
-    spanName: request.path | "/"
+    spanName: '"http.request"'
     startTime: request.time
     endTime: response.time
     # If this is >=500, the span will get an 'error' tag
