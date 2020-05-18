@@ -16,6 +16,7 @@ spec:
     # adapter pod.
     access_token: "MY_ACCESS_TOKEN"
     ingest_url: "https://ingest.signalfx.com"  # Fill in with base ingest URL or remove to use default
+    trace_endpoint_url: ""  # Fill in with trace endpoint ingest URL to override ingest_url 
     datapoint_interval: 10s
     enable_metrics: true
     enable_tracing: true

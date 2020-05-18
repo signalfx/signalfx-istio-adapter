@@ -15,10 +15,6 @@
 package signalfx
 
 // nolint: lll
-//go:generate bash -c "cd $GOPATH/src/istio.io/istio/mixer/adapter && test -d ./signalfx && rm -rf signalfx-old && mv signalfx signalfx-old"
-//go:generate cp -r $PWD/signalfx $GOPATH/src/istio.io/istio/mixer/adapter/signalfx
-//go:generate $GOPATH/src/istio.io/istio/bin/mixer_codegen.sh -a mixer/adapter/signalfx/config/config.proto -x "-s=false -n signalfx -t metric -t tracespan"
-//go:generate bash -c "cp $GOPATH/src/istio.io/istio/mixer/adapter/signalfx/config/* $PWD/signalfx/config/"
 
 import (
 	"context"
@@ -32,7 +28,7 @@ import (
 
 	google_protobuf2 "github.com/gogo/protobuf/types"
 	"github.com/golang/glog"
-	"github.com/signalfx/golib/sfxclient"
+	"github.com/signalfx/golib/v3/sfxclient"
 	"github.com/signalfx/signalfx-istio-adapter/signalfx/config"
 	"google.golang.org/grpc"
 	mixer_v1beta1 "istio.io/api/mixer/adapter/model/v1beta1"
@@ -86,6 +82,10 @@ func createSignalFxClient(conf *config.Params) *sfxclient.HTTPSink {
 	if conf.IngestUrl != "" {
 		sink.DatapointEndpoint = fmt.Sprintf("%s/v2/datapoint", conf.IngestUrl)
 		sink.TraceEndpoint = fmt.Sprintf("%s/v1/trace", conf.IngestUrl)
+	}
+
+	if conf.TraceEndpointUrl != "" {
+		sink.TraceEndpoint = conf.TraceEndpointUrl
 	}
 
 	return sink

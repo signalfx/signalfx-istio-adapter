@@ -19,6 +19,7 @@ spec:
     access_token: "{{ . }}"
     {{- end }}
     ingest_url: "{{ .Values.ingestUrl }}"  # Fill in with base ingest URL or remove to use default
+    trace_endpoint_url: "{{ .Values.traceEndpointUrl }}"  # Fill in with trace endpoint ingest URL to override ingest_url 
     datapoint_interval: {{ .Values.datapointInterval }}
     enable_metrics: {{ .Values.enableMetrics }}
     enable_tracing: {{ .Values.enableTracing }}

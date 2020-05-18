@@ -16,7 +16,14 @@ accessTokenSecret:
 
 # If using the Smart Gateway (recommended for tracing), you should set this to
 # the location of that (via plain HTTP).
+# ingestUrl: http://otel-collector.default:9943
 ingestUrl: https://ingest.signalfx.com
+
+# The full URL (including path) to the trace ingest server.
+# If this is not set, all trace spans will be sent to the same place
+# as ingestUrl above.
+# traceEndpointUrl: http://otel-collector.default:9411/v1/trace
+traceEndpointUrl:
 
 # How frequently to sent datapoints derived from Istio metrics.  This can be
 # any duration string parseable by https://golang.org/pkg/time/#ParseDuration
@@ -53,7 +60,7 @@ tracingConfig:
   swapLocalRemoteEndpoints: true
 
 imageRepository: quay.io/signalfx/istio-adapter
-imageTag: 0.3.0
+imageTag: 0.4.0 
 imagePullPolicy: Always
 
 nameOverride: ""

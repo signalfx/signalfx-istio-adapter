@@ -168,4 +168,9 @@ message Params {
         // "client" vs a "server" span.
         bool swap_local_remote_endpoints = 7;
     }
+
+    // Optional. The full URL (including path) to the trace ingest server.
+    // If this is not set, all trace spans will be sent to the same place 
+    // as ingestUrl above.
+    string trace_endpoint_url = 8;
 }

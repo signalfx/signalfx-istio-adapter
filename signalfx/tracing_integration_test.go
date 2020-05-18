@@ -22,7 +22,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/signalfx/golib/trace"
+	"github.com/signalfx/golib/v3/trace"
 
 	adapter_integration "istio.io/istio/mixer/pkg/adapter/test"
 )
@@ -171,26 +171,18 @@ func TestReportTraces(t *testing.T) {
             {
              "AdapterState": [
                   {
-                   "annotations": null,
-                   "debug": null,
                    "duration": 100000,
                    "id": "fedcba9876543210",
                    "kind": "CLIENT",
                    "localEndpoint": {
                     "ipv4": "10.0.0.1",
-                    "ipv6": null,
-                    "port": null,
                     "serviceName": "srcsvcworkload"
                    },
                    "name": "http.request",
-                   "parentId": null,
                    "remoteEndpoint": {
                     "ipv4": "10.0.0.2",
-                    "ipv6": null,
-                    "port": null,
                     "serviceName": "destsvcworkload"
                    },
-                   "shared": null,
                    "tags": {
                      "destination.ip": "10.0.0.2",
                      "destination.name": "destsvc",
@@ -213,26 +205,19 @@ func TestReportTraces(t *testing.T) {
                    "traceId": "463ac35c9f6413ad48485a3953bb6124"
                   },
                   {
-                   "annotations": null,
-                   "debug": null,
                    "duration": 105000,
                    "id": "b3a9b83bb2b3098f",
                    "kind": "SERVER",
                    "localEndpoint": {
                     "ipv4": "10.0.0.3",
-                    "ipv6": null,
-                    "port": null,
                     "serviceName": "unknown"
                    },
                    "name": "http.request",
                    "parentId": "fedcba9876543210",
                    "remoteEndpoint": {
                     "ipv4": "10.0.0.2",
-                    "ipv6": null,
-                    "port": null,
                     "serviceName": "unknown"
                    },
-                   "shared": null,
                    "tags": {
                      "destination.ip": "10.0.0.3",
                      "destination.name": "unknown",
@@ -255,26 +240,19 @@ func TestReportTraces(t *testing.T) {
                    "traceId": "463ac35c9f6413ad48485a3953bb6124"
                   },
                   {
-                   "annotations": null,
-                   "debug": null,
                    "duration": 105000,
                    "id": "abcdef0123456789",
                    "kind": "CLIENT",
                    "localEndpoint": {
                     "ipv4": "10.0.0.2",
-                    "ipv6": null,
-                    "port": null,
                     "serviceName": "unknown"
                    },
                    "name": "http.request",
                    "parentId": "fedcba9876543210",
                    "remoteEndpoint": {
                     "ipv4": "10.0.0.3",
-                    "ipv6": null,
-                    "port": null,
                     "serviceName": "unknown"
                    },
-                   "shared": null,
                    "tags": {
                      "destination.ip": "10.0.0.3",
                      "destination.name": "unknown",
@@ -304,27 +282,21 @@ func TestReportTraces(t *testing.T) {
                 "Status": {},
                 "ValidDuration": 0,
                 "ValidUseCount": 0
-               },
-               "Error": null,
-               "Quota": null
+               }
               },
               {
                "Check": {
                 "Status": {},
                 "ValidDuration": 0,
                 "ValidUseCount": 0
-               },
-               "Error": null,
-               "Quota": null
+               }
               },
               {
                "Check": {
                 "Status": {},
                 "ValidDuration": 0,
                 "ValidUseCount": 0
-               },
-               "Error": null,
-               "Quota": null
+               }
               }
              ]
              }`,

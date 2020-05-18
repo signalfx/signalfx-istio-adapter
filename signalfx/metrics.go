@@ -21,8 +21,8 @@ import (
 
 	"github.com/golang/glog"
 	me "github.com/hashicorp/go-multierror"
-	"github.com/signalfx/golib/errors"
-	"github.com/signalfx/golib/sfxclient"
+	"github.com/signalfx/golib/v3/errors"
+	"github.com/signalfx/golib/v3/sfxclient"
 
 	"github.com/signalfx/signalfx-istio-adapter/signalfx/config"
 	"istio.io/api/mixer/adapter/model/v1beta1"
