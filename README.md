@@ -46,7 +46,7 @@ influence the tags that get put on the emitted spans to SignalFx.
 
 To install the chart with Helm, run something like the following command:
 
-`$ helm install --name signalfx-adapter --set fullnameOverride=signalfx-adapter --namespace istio-system --set-string accessToken=MY_ORG_ACCESS_TOKEN ./helm/signalfx-adapter/`
+`$ helm install --name signalfx-adapter --set fullnameOverride=signalfx-adapter --namespace istio-system --set-string accessToken=MY_ORG_ACCESS_TOKEN ./helm/signalfx-istio-adapter/`
 
 or, if using your own values config file:
 
