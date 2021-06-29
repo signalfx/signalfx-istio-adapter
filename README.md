@@ -2,6 +2,9 @@
 
 [![CircleCI](https://circleci.com/gh/signalfx/signalfx-istio-adapter.svg?style=shield)](https://circleci.com/gh/signalfx/signalfx-istio-adapter)
 
+:warning: **SignalFx Istio Mixer Adapter is deprecated. For details, see the
+[Deprecation Notice](./DEPRECATION-NOTICE.md)** :warning:
+
 This repo contains the Istio mixer adapater that converts and sends metrics and
 trace spans to SignalFx.  This was originally written for a Kubernetes Istio
 deployment but should theoretically work outside of K8s with some small tweaks.
