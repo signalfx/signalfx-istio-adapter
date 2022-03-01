@@ -1,0 +1,27 @@
+name: Helm Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  helm:
+    runs-on: ubuntu-latest
+    container:
+      image: quay.io/helmpack/chart-testing:v2.1.0
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: make resources
+        run: |
+          apk add --no-cache bash make git
+          make resources
+          git diff --exit-code || (echo 'Helm resources are out of sync.  Run `make resources` and commit the changes to the repo' && exit 1)
+
+      - name: ct lint
+        run: ct lint helm/signalfx-istio-adapter
